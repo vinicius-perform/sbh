@@ -1,0 +1,141 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design system da Associação Médica */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 150 39% 17%; /* medical-green-600 (#1D352D) convertido para HSL */
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 48 96% 89%; /* medical-gold-100 */
+    --secondary-foreground: 25 95% 53%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 48 100% 67%; /* medical-gold-400 */
+    --accent-foreground: 25 95% 53%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 150 39% 17%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-lato;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-playfair;
+  }
+}
+
+@layer components {
+  .btn-medical {
+    @apply bg-medical-green-600 hover:bg-medical-green-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:scale-105;
+  }
+  
+  .btn-medical-outline {
+    @apply border-2 border-medical-green-600 text-medical-green-600 hover:bg-medical-green-600 hover:text-white px-6 py-3 rounded-lg font-medium transition-all duration-300;
+  }
+  
+  .btn-gold {
+    @apply bg-medical-gold-500 hover:bg-medical-gold-600 text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:shadow-lg;
+  }
+
+  .gradient-hero {
+    background: linear-gradient(135deg, #1D352D 0%, #173027 50%, #122620 100%);
+  }
+
+  .section-spacing {
+    @apply py-16 md:py-24;
+  }
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-medical-green-400 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-medical-green-600;
+}
+
+/* Animações suaves para transições de página */
+.page-transition {
+  @apply animate-fade-in;
+}
+
+/* Estilo para links com hover elegante */
+.link-hover {
+  @apply relative overflow-hidden transition-colors duration-300;
+}
+
+.link-hover::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-full h-0.5 bg-medical-gold-500 transform scale-x-0 origin-left transition-transform duration-300;
+}
+
+.link-hover:hover::after {
+  @apply scale-x-100;
+}
