@@ -17,6 +17,7 @@ import Publicacoes from "./pages/Publicacoes";
 import ArtigoDetalhes from "./pages/ArtigoDetalhes";
 import SejaAssociado from "./pages/SejaAssociado";
 import CadastroUsuario from "./pages/CadastroUsuario";
+import AdminRoute from "./components/AdminRoute";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,7 +36,14 @@ const AppRoutes = () => (
         <Route path="/publicacoes" element={<Publicacoes />} />
         <Route path="/artigo/:id" element={<ArtigoDetalhes />} />
         <Route path="/seja-associado" element={<SejaAssociado />} />
-        <Route path="/admin/cadastro-usuario" element={<CadastroUsuario />} />
+        <Route
+          path="/admin/cadastro-usuario"
+          element={
+            <AdminRoute>
+              <CadastroUsuario />
+            </AdminRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>

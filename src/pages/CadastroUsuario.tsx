@@ -9,7 +9,8 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Star, ArrowLeft } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -134,6 +135,15 @@ const CadastroUsuario = () => {
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="container mx-auto px-4">
         <div className="max-w-2xl mx-auto">
+          <div className="mb-6">
+            <Link
+              to="/area-restrita"
+              className="inline-flex items-center text-sm font-medium text-medical-green-700 hover:text-medical-green-800 transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Voltar para a Área Restrita
+            </Link>
+          </div>
           <Card className="shadow-lg">
             <CardHeader className="text-center">
               <CardTitle className="text-3xl font-playfair font-bold text-gray-900 mb-2">

@@ -11,6 +11,7 @@ interface Profile {
   especialidade: string | null;
   telefone: string | null;
   foto_url: string | null;
+  role?: string | null;
   created_at: string;
   updated_at: string;
 }

@@ -8,6 +8,7 @@ interface AuthContextType {
   user: User | null;
   session: Session | null;
   loading: boolean;
+  isAdmin: boolean;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
 }
@@ -104,10 +105,48 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const [isProfileAdmin, setIsProfileAdmin] = useState(false);
+
+  useEffect(() => {
+    if (!user) {
+      setIsProfileAdmin(false);
+      return;
+    }
+
+    const checkAdminStatus = async () => {
+      try {
+        const { data } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', user.id)
+          .maybeSingle();
+
+        if (data && (data as any).role === 'admin') {
+          setIsProfileAdmin(true);
+        }
+      } catch (err) {
+        console.error('Error checking profile role:', err);
+      }
+    };
+
+    checkAdminStatus();
+  }, [user]);
+
+  const isAdmin = Boolean(
+    user && (
+      user.email?.toLowerCase() === 'diego@sbh.com' ||
+      user.app_metadata?.role === 'admin' ||
+      user.user_metadata?.role === 'admin' ||
+      user.user_metadata?.is_admin === true ||
+      isProfileAdmin
+    )
+  );
+
   const value = {
     user,
     session,
     loading,
+    isAdmin,
     signIn,
     signOut,
   };

@@ -4,14 +4,17 @@ import { useProfile } from '@/hooks/useProfile';
 import LoginForm from '@/components/LoginForm';
 import ProfilePhoto from '@/components/ProfilePhoto';
 import ProfileEditForm from '@/components/ProfileEditForm';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { User, FileText, LogOut, Edit } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { User, FileText, LogOut, Edit, ShieldCheck, UserPlus, Users } from 'lucide-react';
 const AreaRestrita = () => {
   const {
     user,
     loading: authLoading,
-    signOut
+    signOut,
+    isAdmin
   } = useAuth();
   const {
     profile,
@@ -90,6 +93,14 @@ const AreaRestrita = () => {
                   </CardHeader>
                   <CardContent className="text-center">
                     <ProfilePhoto photoUrl={profile?.foto_url} userName={profile?.nome_completo} />
+                    {isAdmin && (
+                      <div className="mt-3 flex justify-center">
+                        <Badge className="bg-amber-600 hover:bg-amber-700 text-white font-medium px-3 py-1 flex items-center gap-1 shadow-sm">
+                          <ShieldCheck className="w-3.5 h-3.5" />
+                          Administrador
+                        </Badge>
+                      </div>
+                    )}
                     <div className="mt-6 space-y-2">
                       <h3 className="font-semibold text-lg">{profile?.nome_completo}</h3>
                       {profile?.crm && <p className="text-gray-600">CRM: {profile.crm}</p>}
@@ -106,11 +117,88 @@ const AreaRestrita = () => {
             </div>
 
             {/* Dashboard Content */}
-            <div className="lg:col-span-2">
-              <div className="grid md:grid-cols-2 gap-6">
-                
+            <div className="lg:col-span-2 space-y-6">
+              {isAdmin && (
+                <Card className="border-medical-green-200 bg-gradient-to-br from-white to-medical-green-50 shadow-md">
+                  <CardHeader>
+                    <div className="flex items-center space-x-2">
+                      <ShieldCheck className="w-6 h-6 text-medical-green-700" />
+                      <CardTitle className="text-xl font-playfair text-gray-900">
+                        Painel do Administrador
+                      </CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-gray-600 text-sm">
+                      Você possui privilégios de administrador da SBH. Utilize as ações abaixo para gerenciar associados e permissões.
+                    </p>
+                    <div className="grid sm:grid-cols-2 gap-4 pt-2">
+                      <Link to="/admin/cadastro-usuario" className="block">
+                        <Button className="w-full bg-medical-green-600 hover:bg-medical-green-700 h-auto py-3 px-4 flex flex-col items-start gap-1 text-left">
+                          <div className="flex items-center space-x-2 font-semibold text-white">
+                            <UserPlus className="w-4 h-4" />
+                            <span>Cadastrar Novo Associado</span>
+                          </div>
+                          <span className="text-xs text-medical-green-100 font-normal">
+                            Criar credenciais e associar novos membros
+                          </span>
+                        </Button>
+                      </Link>
+                      <Link to="/associados" className="block">
+                        <Button variant="outline" className="w-full h-auto py-3 px-4 flex flex-col items-start gap-1 text-left border-gray-300 hover:border-medical-green-600 hover:bg-medical-green-50">
+                          <div className="flex items-center space-x-2 font-semibold text-gray-800">
+                            <Users className="w-4 h-4 text-medical-green-700" />
+                            <span>Ver Quadro de Associados</span>
+                          </div>
+                          <span className="text-xs text-gray-500 font-normal">
+                            Consultar membros e especialistas
+                          </span>
+                        </Button>
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
 
-                
+              {/* Informações Gerais do Associado */}
+              <div className="grid md:grid-cols-2 gap-6">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg font-playfair flex items-center space-x-2">
+                      <FileText className="w-5 h-5 text-medical-green-600" />
+                      <span>Conteúdo Científico</span>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Acesse artigos, revisões e casos clínicos exclusivos para associados.
+                    </p>
+                    <Link to="/publicacoes">
+                      <Button variant="outline" size="sm" className="text-medical-green-700 border-medical-green-600 hover:bg-medical-green-50">
+                        Ver Publicações
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg font-playfair flex items-center space-x-2">
+                      <Users className="w-5 h-5 text-medical-green-600" />
+                      <span>Eventos & Cursos</span>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Confira o calendário de workshops e eventos presenciais da SBH.
+                    </p>
+                    <Link to="/eventos">
+                      <Button variant="outline" size="sm" className="text-medical-green-700 border-medical-green-600 hover:bg-medical-green-50">
+                        Ver Eventos
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </div>
